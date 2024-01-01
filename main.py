@@ -1,4 +1,5 @@
-import package, pygame
+import pyphys2d as ph2d
+import pygame
 
 pygame.init()
 
@@ -6,11 +7,11 @@ window = pygame.display.set_mode([500, 500])
 
 running = True
 
-planet = package.planet_object(25, 1, [250, 250], window)
-moon = package.orbit_object(planet, [250, 150], 1, window)
-moon2 = package.orbit_object(planet, [350, 250], 1, window)
+planet = ph2d.planet_object(25, 1, [250, 250], window)
+moon = ph2d.orbit_object(planet, [250, 150], 1, window)
+moon2 = ph2d.orbit_object(planet, [350, 250], 1, window)
 
-cube = package.physics_object([250, 250], [1, 0], 25, 1, 1, window)
+cube = ph2d.physics_object([250, 250], [1, 0], 25, 1, 1, window)
 
 cube_y = 0
 
@@ -20,7 +21,7 @@ while running:
             running = False
         elif event.type == pygame.KEYDOWN:
             if event.key == pygame.K_w:
-                cube_y = 1
+                cube.update([0, 1])
                 
 
 
@@ -29,10 +30,8 @@ while running:
     planet.update()
     moon.update()
     moon2.update()
-    cube.update([0, cube_y])
+    cube.update([0, 0])
 
     pygame.display.flip()
-    if cube_y >= 1:
-        cube_y = 0
 
 pygame.quit()
